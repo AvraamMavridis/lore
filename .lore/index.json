@@ -1,5 +1,8 @@
 {
   "files": {
+    "docs/index.html": [
+      "19de3d7c-bc24-498c-8d07-d18b22148b3b"
+    ],
     "src/main.rs": [
       "8eb87360-c9f7-4d7f-90dc-1cb9a109885e"
     ],
@@ -7,5 +10,5 @@
       "e1564969-3782-447a-98d5-c8640429907d"
     ]
   },
-  "entry_count": 2
+  "entry_count": 3
 }
