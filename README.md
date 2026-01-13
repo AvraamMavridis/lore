@@ -159,9 +159,9 @@ Claude Code can be configured to automatically use Lore for every code change. A
    ## Before Editing Files
 
    Before modifying any file, check if there's existing reasoning context:
-   ```bash
+
    lore explain <file-path>
-   ```
+   
 
    This will show you:
    - Why the code was written this way
@@ -172,7 +172,7 @@ Claude Code can be configured to automatically use Lore for every code change. A
 
    After completing any code change, you MUST record your reasoning:
 
-   ```bash
+  
    lore record -f <changed-file> \
        -m "Brief description of what you did" \
        --trace "Your full reasoning and chain-of-thought explaining:
@@ -183,13 +183,13 @@ Claude Code can be configured to automatically use Lore for every code change. A
        -r "Alternative 1 you rejected" \
        -r "Alternative 2 you rejected" \
        -T relevant-tag
-   ```
+   
 
    ### Example
 
    If you refactored the authentication module:
 
-   ```bash
+   
    lore record -f src/auth.py \
        -m "Refactored JWT validation to handle refresh tokens" \
        --trace "The existing implementation only supported access tokens. I added refresh token support by:
@@ -203,7 +203,7 @@ Claude Code can be configured to automatically use Lore for every code change. A
        -r "Separate RefreshToken class" \
        -r "Third-party JWT library" \
        -T auth -T jwt -T refactoring
-   ```
+   
 
    ## Important
 
