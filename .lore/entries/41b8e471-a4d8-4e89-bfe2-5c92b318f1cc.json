@@ -1,0 +1,26 @@
+{
+  "id": "41b8e471-a4d8-4e89-bfe2-5c92b318f1cc",
+  "target_file": "docs/index.html",
+  "file_hash": "8ca99af90b7da7011c9dfcf4ceac33a65ff059f48ddf0a34cdad875a06f80a5d",
+  "commit_hash": "ffa14b64f16a94da26b47f052c94dcfa2dc3f0b2",
+  "agent_id": "claude-opus-4",
+  "timestamp": "2026-01-14T15:30:45.949690Z",
+  "intent": "Update documentation to highlight smart merge conflict resolution feature",
+  "reasoning_trace": "Added comprehensive documentation of the append-only merge strategy feature that was just implemented.\n\nREADME.md improvements:\n- New 'Smart Merge Conflict Resolution' section right after 'Why Lore?' comparison table\n- Visual example showing the contrast: Branch A + Branch B → Both entries preserved\n- Highlights key benefits with checkmarks: preserves both, zero manual conflict resolution, shows decision history\n- Links to detailed MERGE_STRATEGY.md documentation for users who want to learn more\n- Practical example showing how 'lore explain --all' reveals reasoning from both branches\n\ndocs/index.html improvements:\n- Added full featured section between 'Why Lore?' table and 'Installation'\n- Side-by-side comparison cards showing 'Without Lore' (lose context) vs 'With Lore' (preserve all)\n- Three key feature cards using FontAwesome icons:\n  * fa-code-branch: Zero Conflicts (no manual resolution)\n  * fa-layer-group: Preserve All (both branches kept)\n  * fa-history: Complete History (view with lore explain --all)\n- Example code block showing actual output after merge\n- Real-world scenario showing different agents on different branches\n- Uses site theme colors (primary pink for highlights, coffee-bean for backgrounds)\n- Responsive grid layout (mobile/tablet/desktop compatible)\n\nWhy this placement:\n- Right after 'Why Lore?' comparison: Immediately shows unique competitive advantage\n- Before 'Installation': Users understand value proposition before setting up\n- Prominent feature section: Demonstrates problem-solving capability\n\nTarget audience:\n- Teams working on parallel features/branches (conflicts are real)\n- Multi-agent development scenarios\n- Organizations wanting to preserve decision history across all teams\n- Anyone frustrated with merge conflicts losing context",
+  "rejected_alternatives": [
+    {
+      "name": "Putting merge strategy feature at the end (less discoverable)"
+    },
+    {
+      "name": "Only documenting in code comments (invisible to web visitors)"
+    },
+    {
+      "name": "Complex technical explanation (targeting developers only)"
+    }
+  ],
+  "tags": [
+    "documentation",
+    "user-experience",
+    "feature-marketing"
+  ]
+}
