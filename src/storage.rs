@@ -287,42 +287,6 @@ pub fn find_lore_root(start: &Path) -> Option<PathBuf> {
     }
 }
 
-/// Merge two LoreIndex objects using append-only strategy
-/// When conflicts occur (same file in both indexes), both entry IDs are preserved
-pub fn merge_lore_indexes(
-    ours: &crate::models::LoreIndex,
-    theirs: &crate::models::LoreIndex,
-) -> crate::models::LoreIndex {
-    let mut merged = crate::models::LoreIndex::new();
-    let mut all_files: std::collections::HashSet<String> =
-        ours.files.keys().chain(theirs.files.keys()).cloned().collect();
-
-    for file_path in all_files {
-        let mut entry_ids = std::collections::HashSet::new();
-
-        // Add entries from our side
-        if let Some(ids) = ours.get_entries_for_file(&file_path) {
-            for id in ids {
-                entry_ids.insert(id.clone());
-            }
-        }
-
-        // Add entries from their side (append-only merge)
-        if let Some(ids) = theirs.get_entries_for_file(&file_path) {
-            for id in ids {
-                entry_ids.insert(id.clone());
-            }
-        }
-
-        // Add all collected entry IDs to merged index
-        for id in entry_ids {
-            merged.add_entry(&file_path, &id);
-        }
-    }
-
-    merged
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -798,76 +762,4 @@ mod tests {
         assert_eq!(root.unwrap(), temp_dir.path());
     }
 
-    #[test]
-    fn test_merge_lore_indexes_no_conflict() {
-        let mut ours = crate::models::LoreIndex::new();
-        ours.add_entry("src/auth.rs", "entry-1");
-        ours.add_entry("src/auth.rs", "entry-2");
-
-        let mut theirs = crate::models::LoreIndex::new();
-        theirs.add_entry("src/lib.rs", "entry-3");
-
-        let merged = merge_lore_indexes(&ours, &theirs);
-
-        assert_eq!(merged.entry_count, 3);
-        let auth_entries = merged.get_entries_for_file("src/auth.rs").unwrap();
-        assert_eq!(auth_entries.len(), 2);
-        assert!(auth_entries.contains(&"entry-1".to_string()));
-        assert!(auth_entries.contains(&"entry-2".to_string()));
-
-        let lib_entries = merged.get_entries_for_file("src/lib.rs").unwrap();
-        assert_eq!(lib_entries.len(), 1);
-        assert!(lib_entries.contains(&"entry-3".to_string()));
-    }
-
-    #[test]
-    fn test_merge_lore_indexes_with_conflict() {
-        // Simulate two branches updating the same file
-        let mut ours = crate::models::LoreIndex::new();
-        ours.add_entry("src/auth.rs", "entry-branch-a");
-
-        let mut theirs = crate::models::LoreIndex::new();
-        theirs.add_entry("src/auth.rs", "entry-branch-b");
-
-        let merged = merge_lore_indexes(&ours, &theirs);
-
-        // Both entries should be preserved (append-only merge)
-        assert_eq!(merged.entry_count, 2);
-        let auth_entries = merged.get_entries_for_file("src/auth.rs").unwrap();
-        assert_eq!(auth_entries.len(), 2);
-        assert!(auth_entries.contains(&"entry-branch-a".to_string()));
-        assert!(auth_entries.contains(&"entry-branch-b".to_string()));
-    }
-
-    #[test]
-    fn test_merge_lore_indexes_empty() {
-        let ours = crate::models::LoreIndex::new();
-        let theirs = crate::models::LoreIndex::new();
-
-        let merged = merge_lore_indexes(&ours, &theirs);
-
-        assert_eq!(merged.entry_count, 0);
-        assert!(merged.files.is_empty());
-    }
-
-    #[test]
-    fn test_merge_lore_indexes_deduplication() {
-        // If both sides have the same entry ID, it should only appear once
-        let mut ours = crate::models::LoreIndex::new();
-        ours.add_entry("src/auth.rs", "entry-1");
-        ours.add_entry("src/auth.rs", "entry-2");
-
-        let mut theirs = crate::models::LoreIndex::new();
-        theirs.add_entry("src/auth.rs", "entry-1"); // Same entry
-        theirs.add_entry("src/auth.rs", "entry-3");
-
-        let merged = merge_lore_indexes(&ours, &theirs);
-
-        // Should have 3 unique entries, not 4
-        let auth_entries = merged.get_entries_for_file("src/auth.rs").unwrap();
-        assert_eq!(auth_entries.len(), 3);
-        assert!(auth_entries.contains(&"entry-1".to_string()));
-        assert!(auth_entries.contains(&"entry-2".to_string()));
-        assert!(auth_entries.contains(&"entry-3".to_string()));
-    }
 }
