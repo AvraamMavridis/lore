@@ -20,7 +20,8 @@ pub struct RecordOptions {
 pub fn execute(options: RecordOptions) -> Result<(), Box<dyn std::error::Error>> {
     // Find lore root
     let current_dir = std::env::current_dir()?;
-    let root = find_lore_root(&current_dir).ok_or("Lore not initialized. Run 'lore init' first.")?;
+    let root =
+        find_lore_root(&current_dir).ok_or("Lore not initialized. Run 'lore init' first.")?;
 
     let storage = LoreStorage::new(root.clone());
 
@@ -101,11 +102,7 @@ pub fn execute(options: RecordOptions) -> Result<(), Box<dyn std::error::Error>>
 
         // Skip if file doesn't exist (was deleted)
         if !full_path.exists() {
-            println!(
-                "{} Skipping {} (file not found)",
-                "→".yellow(),
-                normalized
-            );
+            println!("{} Skipping {} (file not found)", "→".yellow(), normalized);
             continue;
         }
 
@@ -165,7 +162,10 @@ fn get_reasoning_trace(options: &RecordOptions) -> Result<String, Box<dyn std::e
     }
 
     if options.stdin {
-        println!("{}", "Reading reasoning trace from stdin (Ctrl+D to end):".yellow());
+        println!(
+            "{}",
+            "Reading reasoning trace from stdin (Ctrl+D to end):".yellow()
+        );
         let mut buffer = String::new();
         io::stdin().read_to_string(&mut buffer)?;
         return Ok(buffer);

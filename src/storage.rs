@@ -150,7 +150,10 @@ impl LoreStorage {
     }
 
     /// Get all entries for a file
-    pub fn get_entries_for_file(&self, file_path: &str) -> Result<Vec<ThoughtObject>, StorageError> {
+    pub fn get_entries_for_file(
+        &self,
+        file_path: &str,
+    ) -> Result<Vec<ThoughtObject>, StorageError> {
         let index = self.load_index()?;
 
         // Normalize the file path
@@ -158,7 +161,11 @@ impl LoreStorage {
 
         let mut entries: Vec<ThoughtObject> = index
             .get_entries_for_file(&normalized)
-            .map(|ids| ids.iter().filter_map(|id| self.load_entry(id).ok()).collect())
+            .map(|ids| {
+                ids.iter()
+                    .filter_map(|id| self.load_entry(id).ok())
+                    .collect()
+            })
             .unwrap_or_default();
 
         // Sort by timestamp, newest first
@@ -714,7 +721,10 @@ mod tests {
 
     #[test]
     fn test_normalize_path_complex() {
-        assert_eq!(normalize_path("./src\\utils\\helper.rs"), "src/utils/helper.rs");
+        assert_eq!(
+            normalize_path("./src\\utils\\helper.rs"),
+            "src/utils/helper.rs"
+        );
     }
 
     #[test]

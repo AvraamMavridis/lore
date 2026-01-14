@@ -9,7 +9,8 @@ pub struct ListOptions {
 pub fn execute(options: ListOptions) -> Result<(), Box<dyn std::error::Error>> {
     // Find lore root
     let current_dir = std::env::current_dir()?;
-    let root = find_lore_root(&current_dir).ok_or("Lore not initialized. Run 'lore init' first.")?;
+    let root =
+        find_lore_root(&current_dir).ok_or("Lore not initialized. Run 'lore init' first.")?;
 
     let storage = LoreStorage::new(root);
     let mut entries = storage.get_all_entries()?;

@@ -97,7 +97,11 @@ pub fn execute() -> Result<(), Box<dyn std::error::Error>> {
                 "  {} ({} {})",
                 file.cyan(),
                 entries.len(),
-                if entries.len() == 1 { "entry" } else { "entries" }
+                if entries.len() == 1 {
+                    "entry"
+                } else {
+                    "entries"
+                }
             );
         }
     }

@@ -12,7 +12,8 @@ pub struct ExplainOptions {
 pub fn execute(options: ExplainOptions) -> Result<(), Box<dyn std::error::Error>> {
     // Find lore root
     let current_dir = std::env::current_dir()?;
-    let root = find_lore_root(&current_dir).ok_or("Lore not initialized. Run 'lore init' first.")?;
+    let root =
+        find_lore_root(&current_dir).ok_or("Lore not initialized. Run 'lore init' first.")?;
 
     let storage = LoreStorage::new(root);
     let normalized = normalize_path(&options.file);
@@ -73,7 +74,11 @@ fn print_entries(file_path: &str, entries: &[ThoughtObject]) {
             "Agent:".bold(),
             entry.agent_id.yellow(),
             "│".dimmed(),
-            entry.timestamp.format("%Y-%m-%d %H:%M:%S UTC").to_string().dimmed()
+            entry
+                .timestamp
+                .format("%Y-%m-%d %H:%M:%S UTC")
+                .to_string()
+                .dimmed()
         );
 
         if let Some(commit) = &entry.commit_hash {
@@ -135,9 +140,6 @@ fn print_entries(file_path: &str, entries: &[ThoughtObject]) {
     println!("{}", "═".repeat(60).dimmed());
 
     if entries.len() == 1 {
-        println!(
-            "{}",
-            "Tip: Use --all to see complete history".dimmed()
-        );
+        println!("{}", "Tip: Use --all to see complete history".dimmed());
     }
 }
