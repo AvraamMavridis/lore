@@ -292,18 +292,50 @@ After completing code changes, record your reasoning:
     <!-- Installation Section -->
     <section id="installation" class="py-20 bg-coffee-bean-950">
         <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Installation</h2>
-            <div class="code-block rounded-xl p-6 overflow-x-auto">
-                <pre class="text-coffee-bean-200"><code><span class="text-coffee-bean-400"># Install Rust (if not installed)</span>
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+            <h2 class="text-3xl font-bold text-center mb-4">Installation</h2>
+            <p class="text-coffee-bean-300 text-center mb-12">Download the pre-built binary for your platform</p>
 
-<span class="text-coffee-bean-400"># Build and install lore</span>
-cargo install --path .
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-xl font-semibold mb-4 text-center">macOS</h3>
+                    <div class="code-block rounded-lg p-4 text-sm overflow-x-auto">
+                        <pre class="text-coffee-bean-200"><code><span class="text-coffee-bean-400"># Apple Silicon</span>
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-aarch64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore
 
-<span class="text-coffee-bean-400"># Or build without installing</span>
-cargo build --release
-<span class="text-coffee-bean-400"># Binary will be at target/release/lore</span></code></pre>
+<span class="text-coffee-bean-400"># Intel</span>
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-x86_64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore</code></pre>
+                    </div>
+                </div>
+
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Linux</h3>
+                    <div class="code-block rounded-lg p-4 text-sm overflow-x-auto">
+                        <pre class="text-coffee-bean-200"><code><span class="text-coffee-bean-400"># x86_64</span>
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-x86_64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore
+
+<span class="text-coffee-bean-400"># ARM64</span>
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-aarch64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore</code></pre>
+                    </div>
+                </div>
+
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Windows</h3>
+                    <p class="text-coffee-bean-300 text-sm mb-4">Download the executable and add to your PATH:</p>
+                    <a href="https://github.com/avraammavridis/lore/releases/latest/download/lore-windows-x86_64.exe"
+                       class="block bg-primary hover:bg-secondary text-white text-center py-2 px-4 rounded-lg transition">
+                        Download lore.exe
+                    </a>
+                </div>
             </div>
+
+            <p class="text-coffee-bean-400 text-center text-sm">
+                Or <a href="https://github.com/avraammavridis/lore/releases" class="text-primary hover:text-white transition">view all releases</a>
+                &bull; Build from source with <code class="text-coffee-bean-300">cargo install --path .</code>
+            </p>
         </div>
     </section>
 

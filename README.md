@@ -129,16 +129,41 @@ When working on code:
 
 ## Installation
 
+### macOS
+
 ```bash
-# Install Rust (if not installed)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Apple Silicon (M1/M2/M3)
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-aarch64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore
 
-# Build and install lore
+# Intel
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-x86_64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore
+```
+
+### Linux
+
+```bash
+# x86_64
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-x86_64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore
+
+# ARM64
+curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-aarch64 -o /usr/local/bin/lore
+chmod +x /usr/local/bin/lore
+```
+
+### Windows
+
+Download `lore-windows-x86_64.exe` from the [latest release](https://github.com/avraammavridis/lore/releases/latest) and add it to your PATH.
+
+### Build from Source
+
+If you prefer to build from source:
+
+```bash
+# Requires Rust: https://rustup.rs
 cargo install --path .
-
-# Or build without installing
-cargo build --release
-# Binary will be at target/release/lore
 ```
 
 ## Manual Usage
