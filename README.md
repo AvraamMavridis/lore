@@ -51,6 +51,8 @@ When multiple AI agents work on the same codebase:
 
 ## Claude Code Integration
 
+<img src="claude_logo.svg.png" alt="Claude" height="40">
+
 Claude Code can be configured to automatically use Lore for every code change.
 
 ### Setup
@@ -78,6 +80,8 @@ Claude Code can be configured to automatically use Lore for every code change.
 3. **Commit the `CLAUDE.md` file** to your repository so all Claude Code sessions use it.
 
 ## Cursor Integration
+
+<img src="cursor_logo.png" alt="Cursor" height="40">
 
 Configure Cursor to use Lore for persistent reasoning context.
 
