@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" alt="Lore" width="200">
+</p>
+
 # Lore
 
 A reasoning engine for code — stores the "why" behind changes.
