@@ -186,7 +186,7 @@ impl LoreStorage {
             let entry = entry?;
             let path = entry.path();
 
-            if path.extension().map_or(false, |ext| ext == "json") {
+            if path.extension().is_some_and(|ext| ext == "json") {
                 let content = fs::read_to_string(&path)?;
                 if let Ok(thought) = serde_json::from_str::<ThoughtObject>(&content) {
                     entries.push(thought);
@@ -257,6 +257,7 @@ pub fn hash_file(path: &Path) -> Result<String, StorageError> {
 }
 
 /// Hash a string using SHA256
+#[allow(dead_code)]
 pub fn hash_string(content: &str) -> String {
     let mut hasher = Sha256::new();
     hasher.update(content.as_bytes());

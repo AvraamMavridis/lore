@@ -77,11 +77,13 @@ impl GitContext {
     }
 
     /// Get the repo root directory
+    #[allow(dead_code)]
     pub fn workdir(&self) -> Option<&Path> {
         self.repo.workdir()
     }
 
     /// Check if a path is ignored by git
+    #[allow(dead_code)]
     pub fn is_ignored(&self, path: &str) -> bool {
         self.repo.is_path_ignored(Path::new(path)).unwrap_or(false)
     }
@@ -106,6 +108,7 @@ impl GitContext {
 pub struct ChangedFile {
     pub path: String,
     pub change_type: ChangeType,
+    #[allow(dead_code)]
     pub staged: bool,
 }
 
