@@ -55,8 +55,6 @@ lore explain src/auth.rs --all
 # - Branch B's perspective (e.g., "Added security hardening")
 ```
 
-Learn more: [Merge Strategy Documentation](docs/MERGE_STRATEGY.md)
-
 ## Installation
 
 Pre-built binaries are available for macOS, Linux, and Windows. Choose your platform below:
