@@ -1,0 +1,23 @@
+{
+  "id": "e45e6a3e-8aea-4fc2-96ae-e87f5ef31986",
+  "target_file": "README.md",
+  "file_hash": "bc89003ac45e46b67468c25b537d37a1974803d56d6692177ad27fb68c0db7bd",
+  "commit_hash": "fdbf2f560072f5974e701bd9ac82b9e007101943",
+  "agent_id": "claude-opus-4",
+  "timestamp": "2026-01-14T07:41:20.189308Z",
+  "intent": "Reorganized README to prioritize AI agent integration",
+  "reasoning_trace": "Restructured the README to match the docs/index.html layout, emphasizing Lore's primary use case with AI coding assistants.\n\nChanges made:\n1. Moved 'Why Lore?' comparison table up to appear right after 'What is Lore?'\n2. Moved 'Integration with AI Agents' section to appear early, with benefits highlighted\n3. Added dedicated 'Cursor Integration' section with .cursorrules and Settings instructions\n4. Moved 'Installation' below the integration sections\n5. Renamed 'Quick Start' to 'Manual Usage' and moved it lower\n6. Renamed 'Commands' to 'Commands Reference' and kept it near the bottom\n7. Simplified Claude Code integration section to be more concise\n8. Removed redundant example agent workflow section (covered in integration sections)\n\nRationale:\n- Most users will integrate Lore with AI coding assistants (Claude Code, Cursor, etc.)\n- The integration sections should be prominent and easy to find in the README\n- Manual CLI usage is secondary and can be discovered after understanding the main use case\n- This matches the structure of docs/index.html for consistency",
+  "rejected_alternatives": [
+    {
+      "name": "Keeping original section order - AI integration was too far down"
+    },
+    {
+      "name": "Separate README files for each integration - single file is better for discoverability"
+    }
+  ],
+  "tags": [
+    "docs",
+    "readme",
+    "restructure"
+  ]
+}

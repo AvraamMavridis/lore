@@ -1,13 +1,16 @@
 {
   "files": {
-    "src/storage.rs": [
-      "90cc5f89-7e4a-4771-91fa-28b45cdc0547"
-    ],
     "src/git.rs": [
       "68b427b0-31bf-4e69-8eca-f616ff43899f"
     ],
+    "README.md": [
+      "e45e6a3e-8aea-4fc2-96ae-e87f5ef31986"
+    ],
     "src/main.rs": [
       "8eb87360-c9f7-4d7f-90dc-1cb9a109885e"
+    ],
+    "src/storage.rs": [
+      "90cc5f89-7e4a-4771-91fa-28b45cdc0547"
     ],
     "docs/index.html": [
       "19de3d7c-bc24-498c-8d07-d18b22148b3b",
@@ -21,5 +24,5 @@
       "e345f3f1-dd33-4278-9310-3d19afd0cc91"
     ]
   },
-  "entry_count": 8
+  "entry_count": 9
 }

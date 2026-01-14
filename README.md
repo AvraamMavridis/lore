@@ -19,6 +19,110 @@ While Git tells you **who** changed code and **when**, Lore tells you **why**. I
 
 All entries are cryptographically linked to file content hashes and optionally to Git commits.
 
+## Why Lore?
+
+| Feature | Comments | Commit Messages | Lore |
+|---------|----------|-----------------|------|
+| **Volume** | Must be short | ~50 chars | Unlimited (5000+ words) |
+| **Searchable** | Code only | Messages only | Full reasoning + alternatives |
+| **Stability** | Often deleted | Can be amended | Immutable, hash-linked |
+| **Context** | What the code does | What changed | Why it was written that way |
+
+## Integration with AI Agents
+
+Lore is designed to work seamlessly with AI coding assistants. Add to your agent's system instructions:
+
+```
+You have access to a tool called `lore`.
+
+Before you edit a file, run `lore explain <file>` to understand the hidden context.
+
+After you finish a task, run `lore record` to save your chain-of-thought so future agents understand your decisions.
+```
+
+### Benefits for Multi-Agent Workflows
+
+When multiple AI agents work on the same codebase:
+
+1. **No Lost Context**: Each agent's reasoning is preserved forever
+2. **Avoid Repeated Mistakes**: Rejected alternatives prevent re-exploring dead ends
+3. **Understand Intent**: Future agents know *why* code exists, not just *what* it does
+4. **Searchable History**: Query reasoning across the entire project history
+
+## Claude Code Integration
+
+Claude Code can be configured to automatically use Lore for every code change.
+
+### Setup
+
+1. **Initialize Lore in your project:**
+   ```bash
+   lore init --agent "claude-code"
+   ```
+
+2. **Create a `CLAUDE.md` file** in your project root:
+
+   ```markdown
+   # Lore Integration
+
+   Before modifying any file, check for existing reasoning:
+     lore explain <file-path>
+
+   After completing any code change, record your reasoning:
+     lore record -f <file> -m "Brief description" \
+         --trace "Full reasoning..." \
+         -r "Rejected alternative" \
+         -T relevant-tag
+   ```
+
+3. **Commit the `CLAUDE.md` file** to your repository so all Claude Code sessions use it.
+
+## Cursor Integration
+
+Configure Cursor to use Lore for persistent reasoning context.
+
+### Setup
+
+1. **Initialize Lore in your project:**
+   ```bash
+   lore init --agent "cursor"
+   ```
+
+2. **Create a `.cursorrules` file** in your project root:
+
+   ```markdown
+   # Lore Integration for Cursor
+
+   This project uses Lore to track reasoning behind code changes.
+
+   ## Before Editing Files
+   Before modifying any file, check if there's existing reasoning:
+     lore explain <file-path>
+
+   ## After Making Changes
+   After completing code changes, record your reasoning:
+     lore record -f <changed-file> \
+         -m "Brief description of what you did" \
+         --trace "Your full reasoning explaining:
+     - Why you made these specific changes
+     - What alternatives you considered
+     - Any trade-offs or concerns" \
+         -r "Alternative you rejected" \
+         -T relevant-tag
+   ```
+
+### Alternative: Use Cursor Settings
+
+Add to Cursor's "Rules for AI" in Settings > General > Rules for AI:
+
+```
+When working on code:
+1. Before editing any file, run 'lore explain <file>' to check for existing context
+2. After making changes, run 'lore record' with your reasoning
+3. Include rejected alternatives with -r flag
+4. Add relevant tags with -T flag
+```
+
 ## Installation
 
 ```bash
@@ -33,11 +137,13 @@ cargo build --release
 # Binary will be at target/release/lore
 ```
 
-## Quick Start
+## Manual Usage
+
+You can also use Lore directly from the command line:
 
 ```bash
 # Initialize Lore in your project
-lore init --agent "claude-3-5-sonnet"
+lore init --agent "my-agent-id"
 
 # After making code changes, record your reasoning
 lore record -m "Refactoring auth to handle JWTs" \
@@ -51,7 +157,7 @@ lore search "JWT"
 lore search "pandas"  # Find all code avoiding pandas
 ```
 
-## Commands
+## Commands Reference
 
 ### `lore init`
 
@@ -130,177 +236,6 @@ Show Lore status for the repository.
 lore status  # Shows entry count, tracked files, changed files without reasoning
 ```
 
-## Integration with AI Agents
-
-Add to your agent's system instructions:
-
-```
-You have access to a tool called `lore`.
-
-Before you edit a file, run `lore explain <file>` to understand the hidden context.
-
-After you finish a task, run `lore record` to save your chain-of-thought so future agents understand your decisions.
-```
-
-## Claude Code Integration
-
-Claude Code can be configured to automatically use Lore for every code change. Add a `CLAUDE.md` file to your project root with instructions for Claude Code to follow.
-
-### Setup
-
-1. **Initialize Lore in your project:**
-   ```bash
-   lore init --agent "claude-code"
-   ```
-
-2. **Create a `CLAUDE.md` file** in your project root:
-
-   ```markdown
-   # Lore Integration
-
-   This project uses Lore to track reasoning behind code changes.
-
-   ## Before Editing Files
-
-   Before modifying any file, check if there's existing reasoning context:
-
-   lore explain <file-path>
-   
-
-   This will show you:
-   - Why the code was written this way
-   - What alternatives were considered and rejected
-   - Any warnings or notes from previous developers/agents
-
-   ## After Making Changes
-
-   After completing any code change, you MUST record your reasoning:
-
-  
-   lore record -f <changed-file> \
-       -m "Brief description of what you did" \
-       --trace "Your full reasoning and chain-of-thought explaining:
-   - Why you made these specific changes
-   - What alternatives you considered
-   - Any trade-offs or concerns
-   - Warnings for future developers" \
-       -r "Alternative 1 you rejected" \
-       -r "Alternative 2 you rejected" \
-       -T relevant-tag
-   
-
-   ### Example
-
-   If you refactored the authentication module:
-
-   
-   lore record -f src/auth.py \
-       -m "Refactored JWT validation to handle refresh tokens" \
-       --trace "The existing implementation only supported access tokens. I added refresh token support by:
-   1. Adding a token_type field to distinguish token types
-   2. Creating separate validation paths for each type
-   3. Adding a refresh endpoint
-
-   I considered using a separate RefreshToken class but decided against it to keep the codebase simpler. The current approach handles both types in the same Token class with a discriminator field.
-
-   Warning: The refresh token expiry is hardcoded to 7 days. This should probably be configurable." \
-       -r "Separate RefreshToken class" \
-       -r "Third-party JWT library" \
-       -T auth -T jwt -T refactoring
-   
-
-   ## Important
-
-   - Always run `lore explain` before editing unfamiliar code
-   - Always run `lore record` after completing changes
-   - Include rejected alternatives to help future agents avoid dead ends
-   - Add warnings about fragile or non-obvious code behavior
-   ```
-
-3. **Commit the `CLAUDE.md` file** to your repository so all Claude Code sessions use it.
-
-> **Tip:** Copy the template from `examples/CLAUDE.md.template` in this repository for a ready-to-use configuration.
-
-### Alternative: User-Level Configuration
-
-For personal projects or to apply Lore globally, you can add instructions to your Claude Code settings:
-
-1. Open Claude Code settings (usually `~/.claude/settings.json` or via the CLI)
-
-2. Add custom instructions:
-   ```json
-   {
-     "customInstructions": "When working on code:\n1. Before editing any file, run 'lore explain <file>' to check for existing context\n2. After making changes, run 'lore record' with your reasoning\n3. Include rejected alternatives with -r flag\n4. Add relevant tags with -T flag"
-   }
-   ```
-
-### What Gets Recorded
-
-When Claude Code follows these instructions, each change will capture:
-
-| Field | Example |
-|-------|---------|
-| **Intent** | "Refactored JWT validation to handle refresh tokens" |
-| **Reasoning Trace** | Full explanation of approach, trade-offs, and concerns |
-| **Rejected Alternatives** | "Separate RefreshToken class", "Third-party JWT library" |
-| **Tags** | `#auth`, `#jwt`, `#refactoring` |
-| **File Hash** | Cryptographic link to exact file state |
-| **Timestamp** | When the change was made |
-| **Agent ID** | "claude-code" |
-
-### Benefits for Multi-Agent Workflows
-
-When multiple Claude Code sessions (or other AI agents) work on the same codebase:
-
-1. **No Lost Context**: Each agent's reasoning is preserved forever
-2. **Avoid Repeated Mistakes**: Rejected alternatives prevent re-exploring dead ends
-3. **Understand Intent**: Future agents know *why* code exists, not just *what* it does
-4. **Searchable History**: Query reasoning across the entire project history
-
-```bash
-# Find all code written to avoid a specific library
-lore search "pandas"
-
-# Find all authentication-related decisions
-lore search "auth" --tag auth
-
-# See full history of a frequently-modified file
-lore explain src/core/engine.py --all
-```
-
-### Example Agent Workflow
-
-```bash
-# Agent reads existing reasoning before editing
-$ lore explain src/auth_middleware.py
-═══════════════════════════════════════════════════════════════
-Lore for: src/auth_middleware.py
-═══════════════════════════════════════════════════════════════
-
-Agent: claude-3-5-sonnet │ 2024-02-14 10:00:00 UTC
-Commit: a1b2c3d4
-
-Intent:
-Refactoring auth to handle JWTs
-
-Reasoning:
-  I initially tried using library X, but it conflicted with our
-  dependencies. I switched to a manual implementation.
-
-  Note: This logic is brittle if the token format changes.
-
-Rejected Alternatives:
-  ✗ Auth0 SDK
-  ✗ Custom decorator approach
-
-═══════════════════════════════════════════════════════════════
-
-# Agent makes changes, then records reasoning
-$ lore record -m "Extended JWT handling for refresh tokens" \
-    --trace "Building on the previous implementation, I added..." \
-    -r "Separate refresh token service"
-```
-
 ## Data Storage
 
 Lore stores data in `.lore/` folder (intended to be committed to Git):
@@ -335,15 +270,6 @@ Each entry is a JSON file:
   "tags": ["auth", "security"]
 }
 ```
-
-## Why Lore?
-
-| Feature | Comments | Commit Messages | Lore |
-|---------|----------|-----------------|------|
-| **Volume** | Must be short | ~50 chars | Unlimited (5000+ words) |
-| **Searchable** | Code only | Messages only | Full reasoning + alternatives |
-| **Stability** | Often deleted | Can be amended | Immutable, hash-linked |
-| **Context** | What the code does | What changed | Why it was written that way |
 
 ## License
 
