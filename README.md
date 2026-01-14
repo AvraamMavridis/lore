@@ -271,6 +271,10 @@ Each entry is a JSON file:
 }
 ```
 
+## Author
+
+Built by [Avraam Mavridis](https://www.avraam.dev/) &bull; [LinkedIn](https://www.linkedin.com/in/avrmav/)
+
 ## License
 
 MIT
