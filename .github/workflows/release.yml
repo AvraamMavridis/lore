@@ -2,6 +2,7 @@ name: Release
 
 on:
   push:
+    branches: [master, main]
     tags:
       - 'v*'
 
@@ -74,6 +75,23 @@ jobs:
       contents: write
 
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate version tag
+        id: version
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            echo "is_manual=true" >> $GITHUB_OUTPUT
+          else
+            # Auto-generate tag from date and short SHA
+            TAG="v0.1.0-$(date +'%Y%m%d')-${GITHUB_SHA::7}"
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+            echo "is_manual=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
@@ -82,7 +100,10 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
           files: artifacts/**/*
           generate_release_notes: true
+          prerelease: ${{ steps.version.outputs.is_manual == 'false' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
