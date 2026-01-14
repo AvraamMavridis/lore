@@ -1,0 +1,30 @@
+{
+  "id": "b799844a-ceae-435d-927f-87f5e0ac07e8",
+  "target_file": ".gitattributes",
+  "file_hash": "fc26ce162f8b0e8ed3d72d59e18f5e3eebca7735bc0e0dfec12eca2555391c14",
+  "commit_hash": "698c1cb5dfcefb65bdbfb4335f3fc9bb8a370e5b",
+  "agent_id": "claude-opus-4",
+  "timestamp": "2026-01-14T15:26:03.860522Z",
+  "intent": "Implement append-only merge strategy for handling reasoning conflicts",
+  "reasoning_trace": "Implemented Solution 1 from the conflict resolution design:\n\nProblem: When two developers work on different branches and both record reasoning for the same module, traditional merge drivers would choose one version, losing valuable context from the other branch.\n\nSolution: Append-Only Merge Strategy\n\n1. Core Algorithm (storage.rs):\n   - Added merge_lore_indexes() function that combines two LoreIndex objects\n   - Uses HashSet to deduplicate entry IDs from both branches\n   - Preserves all entries from both 'ours' and 'theirs' sides\n   - Maintains entry_count and file structure correctly\n\n2. Git Integration (scripts/lore-merge-driver.sh):\n   - Shell script that acts as a Git merge driver\n   - Receives BASE, OURS, THEIRS parameters from Git\n   - Parses JSON, merges indexes using Python\n   - Outputs merged result to OURS\n   - Requires Python 3 (standard on modern systems)\n\n3. Configuration (.gitattributes):\n   - Tells Git to use the 'lore' merge driver for .lore/index.json\n   - Also configured for .lore/entries/*.json files\n\n4. Git Config:\n   - Set merge.lore.name and merge.lore.driver in local git config\n   - Driver path is relative: ./scripts/lore-merge-driver.sh\n\nWhy this approach:\n- Aligns with Lore's core philosophy: preserve all reasoning\n- No manual conflict resolution needed\n- Both branches treated equally\n- Deduplication prevents duplicate entries if both branches have same ID\n- Scalable: works for any number of concurrent branches\n\nTest Coverage:\n- test_merge_lore_indexes_no_conflict: Ensures merges work when files differ\n- test_merge_lore_indexes_with_conflict: Verifies both entries preserved\n- test_merge_lore_indexes_empty: Edge case with empty indexes\n- test_merge_lore_indexes_deduplication: Verifies duplicate removal\n\nAlternatives Rejected:\n- Last-writer-wins: Would lose reasoning from other branch\n- Conflict markers: Would require manual resolution (defeats purpose)\n- Separate merge branch: Too complex, harder to maintain\n- Manual merge UI: Not automated, requires developer intervention\n\nFuture Enhancements:\n- Merge visualization UI showing side-by-side reasoning\n- Entry-level merge for individual .lore/entries/*.json files\n- Merge statistics reporting (entries merged per file)\n- Agent-aware merging (different strategies for human vs AI agents)\n\nDocumentation (MERGE_STRATEGY.md):\n- Comprehensive guide covering all aspects\n- Usage examples showing before/after merge states\n- Troubleshooting section for common issues\n- Edge cases documentation\n\nAll 70 tests pass (4 new merge tests).\nImplementation is production-ready.",
+  "rejected_alternatives": [
+    {
+      "name": "Last-writer-wins strategy (loses context)"
+    },
+    {
+      "name": "Manual conflict resolution UI (not automated)"
+    },
+    {
+      "name": "Separate merge branch (complex maintenance)"
+    },
+    {
+      "name": "Only preserving most recent entry (loses history)"
+    }
+  ],
+  "tags": [
+    "merge-strategy",
+    "conflict-resolution",
+    "git-integration",
+    "append-only"
+  ]
+}
