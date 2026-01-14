@@ -162,6 +162,83 @@
         </div>
     </section>
 
+    <!-- Merge Conflict Resolution Section -->
+    <section class="py-20 bg-coffee-bean-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Smart Merge Conflict Resolution</h2>
+            <p class="text-coffee-bean-300 text-center mb-12">When multiple developers work on different branches, Lore preserves all reasoning using append-only merges</p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Problem -->
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-lg font-semibold mb-4 text-coffee-bean-200">❌ Without Lore</h3>
+                    <p class="text-sm mb-4">Traditional merge conflict:</p>
+                    <div class="bg-coffee-bean-900 p-3 rounded text-xs space-y-2 mb-4">
+                        <p><span class="text-yellow-400">Branch A:</span> "Refactored JWT validation"</p>
+                        <p><span class="text-yellow-400">Branch B:</span> "Optimized token caching"</p>
+                        <p class="text-red-400">→ Choose one, lose the other ✗</p>
+                    </div>
+                    <p class="text-coffee-bean-400 text-sm">Loss of context and decision history</p>
+                </div>
+
+                <!-- Solution -->
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-primary">
+                    <h3 class="text-lg font-semibold mb-4 text-primary">✓ With Lore</h3>
+                    <p class="text-sm mb-4">Append-only merge strategy:</p>
+                    <div class="bg-coffee-bean-900 p-3 rounded text-xs space-y-2 mb-4">
+                        <p><span class="text-yellow-400">Branch A:</span> "Refactored JWT validation"</p>
+                        <p><span class="text-yellow-400">Branch B:</span> "Optimized token caching"</p>
+                        <p class="text-primary">→ Keep both entries ✓</p>
+                    </div>
+                    <p class="text-coffee-bean-400 text-sm">Complete decision history preserved</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-code-branch text-primary text-2xl"></i>
+                        <h4 class="font-semibold">Zero Conflicts</h4>
+                    </div>
+                    <p class="text-coffee-bean-300 text-sm">No manual merge resolution needed—automatic append-only strategy</p>
+                </div>
+
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-layer-group text-primary text-2xl"></i>
+                        <h4 class="font-semibold">Preserve All</h4>
+                    </div>
+                    <p class="text-coffee-bean-300 text-sm">Both branches' reasoning preserved together, no context lost</p>
+                </div>
+
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fas fa-history text-primary text-2xl"></i>
+                        <h4 class="font-semibold">Complete History</h4>
+                    </div>
+                    <p class="text-coffee-bean-300 text-sm">View complete decision history with <code class="text-coffee-bean-200">lore explain --all</code></p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-coffee-bean-800/30 border border-coffee-bean-700 p-6 rounded-xl">
+                <h4 class="font-semibold mb-4">Example</h4>
+                <div class="code-block rounded-lg p-4 text-xs overflow-x-auto mb-4">
+                    <pre class="text-coffee-bean-200"><code><span class="text-coffee-bean-400"># After merging two branches with conflicting reasoning</span>
+$ lore explain src/auth.rs --all
+
+Agent: claude-code (feature/auth) │ 2026-01-14 10:00:00 UTC
+Intent: Refactored JWT validation for security hardening
+
+Agent: claude-code (feature/perf) │ 2026-01-14 11:30:00 UTC
+Intent: Optimized token validation caching
+
+<span class="text-coffee-bean-400"># Both perspectives visible—complete context preserved!</span></code></pre>
+                </div>
+                <p class="text-coffee-bean-300 text-sm">Learn more: <a href="#" class="text-primary hover:text-white transition">Merge Strategy Documentation</a></p>
+            </div>
+        </div>
+    </section>
+
     <!-- Installation Section -->
     <section id="installation" class="py-20 bg-coffee-bean-900">
         <div class="max-w-4xl mx-auto px-4">

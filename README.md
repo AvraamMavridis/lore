@@ -28,6 +28,35 @@ All entries are cryptographically linked to file content hashes and optionally t
 | **Stability** | Often deleted | Can be amended | Immutable, hash-linked |
 | **Context** | What the code does | What changed | Why it was written that way |
 
+## Smart Merge Conflict Resolution
+
+When multiple developers work on different branches and both record reasoning for the same file, Lore uses an **append-only merge strategy** to preserve all context:
+
+```
+Branch A: "Refactored JWT validation"
+Branch B: "Optimized token caching"
+         ↓
+Result:  Both entries preserved together
+```
+
+Instead of choosing one version (losing context), Lore automatically:
+- ✅ Preserves reasoning from **both branches**
+- ✅ **Zero manual conflict resolution** needed
+- ✅ Shows complete **decision history** with `lore explain <file> --all`
+- ✅ Deduplicates if the same entry appears in both branches
+
+**Example:**
+```bash
+# After merging two branches with conflicting reasoning
+lore explain src/auth.rs --all
+
+# Shows both:
+# - Branch A's perspective (e.g., "Refactored for performance")
+# - Branch B's perspective (e.g., "Added security hardening")
+```
+
+Learn more: [Merge Strategy Documentation](docs/MERGE_STRATEGY.md)
+
 ## Installation
 
 Pre-built binaries are available for macOS, Linux, and Windows. Choose your platform below:
