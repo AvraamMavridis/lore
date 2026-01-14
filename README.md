@@ -28,6 +28,72 @@ All entries are cryptographically linked to file content hashes and optionally t
 | **Stability** | Often deleted | Can be amended | Immutable, hash-linked |
 | **Context** | What the code does | What changed | Why it was written that way |
 
+## Installation
+
+Pre-built binaries are available for macOS, Linux, and Windows. Choose your platform below:
+
+### macOS
+
+```bash
+# Apple Silicon (M1/M2/M3)
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-aarch64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
+
+# Intel
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-x86_64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
+```
+
+### Linux
+
+```bash
+# x86_64
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-x86_64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
+
+# ARM64
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-aarch64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
+```
+
+### Windows
+
+Download `lore-windows-x86_64.exe` from the [latest release](https://github.com/avraammavridis/lore/releases/latest) and add it to your PATH, or use:
+
+```powershell
+# PowerShell (run as Administrator)
+$url = "https://github.com/avraammavridis/lore/releases/latest/download/lore-windows-x86_64.exe"
+$output = "C:\Program Files\lore.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+```
+
+### Build from Source
+
+If you prefer to build from source, or if pre-built binaries aren't available for your platform yet:
+
+```bash
+# Requires Rust: https://rustup.rs
+git clone https://github.com/avraammavridis/lore.git
+cd lore
+cargo install --path .
+```
+
+## Recording with Lore
+
+You can use Lore directly from the command line to record your reasoning:
+
+```bash
+# Initialize Lore in your project
+lore init --agent "my-agent-id"
+
+# After making code changes, record your reasoning
+lore record -m "Refactoring auth to handle JWTs" \
+    --trace "I initially tried using library X, but it conflicted with our dependencies..."
+
+# Later, understand why code exists
+lore explain src/auth_middleware.py
+
+# Search through reasoning history
+lore search "JWT"
+lore search "pandas"  # Find all code avoiding pandas
+```
+
 ## Integration with AI Agents
 
 Lore is designed to work seamlessly with AI coding assistants. Add to your agent's system instructions:
@@ -125,72 +191,6 @@ When working on code:
 2. After making changes, run 'lore record' with your reasoning
 3. Include rejected alternatives with -r flag
 4. Add relevant tags with -T flag
-```
-
-## Installation
-
-Pre-built binaries are available for macOS, Linux, and Windows. Choose your platform below:
-
-### macOS
-
-```bash
-# Apple Silicon (M1/M2/M3)
-sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-aarch64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
-
-# Intel
-sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-x86_64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
-```
-
-### Linux
-
-```bash
-# x86_64
-sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-x86_64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
-
-# ARM64
-sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-aarch64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
-```
-
-### Windows
-
-Download `lore-windows-x86_64.exe` from the [latest release](https://github.com/avraammavridis/lore/releases/latest) and add it to your PATH, or use:
-
-```powershell
-# PowerShell (run as Administrator)
-$url = "https://github.com/avraammavridis/lore/releases/latest/download/lore-windows-x86_64.exe"
-$output = "C:\Program Files\lore.exe"
-Invoke-WebRequest -Uri $url -OutFile $output
-```
-
-### Build from Source
-
-If you prefer to build from source, or if pre-built binaries aren't available for your platform yet:
-
-```bash
-# Requires Rust: https://rustup.rs
-git clone https://github.com/avraammavridis/lore.git
-cd lore
-cargo install --path .
-```
-
-## Manual Usage
-
-You can also use Lore directly from the command line:
-
-```bash
-# Initialize Lore in your project
-lore init --agent "my-agent-id"
-
-# After making code changes, record your reasoning
-lore record -m "Refactoring auth to handle JWTs" \
-    --trace "I initially tried using library X, but it conflicted with our dependencies..."
-
-# Later, understand why code exists
-lore explain src/auth_middleware.py
-
-# Search through reasoning history
-lore search "JWT"
-lore search "pandas"  # Find all code avoiding pandas
 ```
 
 ## Commands Reference
