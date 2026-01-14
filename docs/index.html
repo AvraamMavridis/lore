@@ -423,7 +423,7 @@ lore search "pandas"  <span class="text-coffee-bean-400"># Find all code avoidin
         <div class="max-w-4xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-4">Data Storage</h2>
             <p class="text-coffee-bean-300 text-center mb-12">Lore stores data in <code class="text-primary">.lore/</code> folder (intended to be committed to Git)</p>
-            <div class="code-block rounded-xl p-6 overflow-x-auto">
+            <div class="code-block rounded-xl p-6 overflow-x-auto mb-8">
                 <pre class="text-coffee-bean-200"><code>.lore/
 ├── config.json       <span class="text-coffee-bean-400"># Repository configuration</span>
 ├── index.json        <span class="text-coffee-bean-400"># File → entry ID mappings</span>
@@ -432,6 +432,25 @@ lore search "pandas"  <span class="text-coffee-bean-400"># Find all code avoidin
 │   ├── uuid2.json
 │   └── ...
 └── .gitignore        <span class="text-coffee-bean-400"># Ignores temp files</span></code></pre>
+            </div>
+
+            <h3 class="text-xl font-semibold mb-4 text-center">Each entry is a JSON file</h3>
+            <div class="code-block rounded-xl p-6 overflow-x-auto">
+                <pre class="text-coffee-bean-200"><code>{
+  <span class="text-coffee-bean-400">"id"</span>: <span class="text-primary">"550e8400-e29b-41d4-a716-446655440000"</span>,
+  <span class="text-coffee-bean-400">"target_file"</span>: <span class="text-primary">"src/auth_middleware.py"</span>,
+  <span class="text-coffee-bean-400">"line_range"</span>: [10, 45],
+  <span class="text-coffee-bean-400">"file_hash"</span>: <span class="text-primary">"sha256:..."</span>,
+  <span class="text-coffee-bean-400">"commit_hash"</span>: <span class="text-primary">"a1b2c3d4..."</span>,
+  <span class="text-coffee-bean-400">"agent_id"</span>: <span class="text-primary">"claude-3-5-sonnet"</span>,
+  <span class="text-coffee-bean-400">"timestamp"</span>: <span class="text-primary">"2024-02-14T10:00:00Z"</span>,
+  <span class="text-coffee-bean-400">"intent"</span>: <span class="text-primary">"Refactoring auth to handle JWTs"</span>,
+  <span class="text-coffee-bean-400">"reasoning_trace"</span>: <span class="text-primary">"I initially tried using library X..."</span>,
+  <span class="text-coffee-bean-400">"rejected_alternatives"</span>: [
+    {<span class="text-coffee-bean-400">"name"</span>: <span class="text-primary">"Auth0 SDK"</span>, <span class="text-coffee-bean-400">"reason"</span>: <span class="text-primary">"Dependency conflicts"</span>}
+  ],
+  <span class="text-coffee-bean-400">"tags"</span>: [<span class="text-primary">"auth"</span>, <span class="text-primary">"security"</span>]
+}</code></pre>
             </div>
         </div>
     </section>
