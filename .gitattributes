@@ -1,0 +1,10 @@
+# Lore Git configuration for intelligent merging
+# These attributes enable the custom Lore merge driver for handling reasoning conflicts
+
+# Merge strategy for Lore index files (append-only strategy)
+# When conflicts occur, both branches' reasoning entries are preserved
+.lore/index.json merge=lore
+
+# Optional: Also handle entry files with append-only strategy
+# This ensures individual reasoning entries are never lost during merges
+.lore/entries/*.json merge=lore
