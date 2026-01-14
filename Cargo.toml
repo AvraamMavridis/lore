@@ -14,7 +14,7 @@ chrono = { version = "0.4", features = ["serde"] }
 sha2 = "0.10"
 hex = "0.4"
 walkdir = "2.4"
-git2 = "0.18"
+git2 = { version = "0.18", features = ["vendored-libgit2", "vendored-openssl"] }
 colored = "2.1"
 thiserror = "1.0"
 dirs = "5.0"
