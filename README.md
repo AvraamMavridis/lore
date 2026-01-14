@@ -129,40 +129,47 @@ When working on code:
 
 ## Installation
 
+Pre-built binaries are available for macOS, Linux, and Windows. Choose your platform below:
+
 ### macOS
 
 ```bash
 # Apple Silicon (M1/M2/M3)
-curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-aarch64 -o /usr/local/bin/lore
-chmod +x /usr/local/bin/lore
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-aarch64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
 
 # Intel
-curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-x86_64 -o /usr/local/bin/lore
-chmod +x /usr/local/bin/lore
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-macos-x86_64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
 ```
 
 ### Linux
 
 ```bash
 # x86_64
-curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-x86_64 -o /usr/local/bin/lore
-chmod +x /usr/local/bin/lore
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-x86_64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
 
 # ARM64
-curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-aarch64 -o /usr/local/bin/lore
-chmod +x /usr/local/bin/lore
+sudo curl -L https://github.com/avraammavridis/lore/releases/latest/download/lore-linux-aarch64 -o /usr/local/bin/lore && sudo chmod +x /usr/local/bin/lore
 ```
 
 ### Windows
 
-Download `lore-windows-x86_64.exe` from the [latest release](https://github.com/avraammavridis/lore/releases/latest) and add it to your PATH.
+Download `lore-windows-x86_64.exe` from the [latest release](https://github.com/avraammavridis/lore/releases/latest) and add it to your PATH, or use:
+
+```powershell
+# PowerShell (run as Administrator)
+$url = "https://github.com/avraammavridis/lore/releases/latest/download/lore-windows-x86_64.exe"
+$output = "C:\Program Files\lore.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+```
 
 ### Build from Source
 
-If you prefer to build from source:
+If you prefer to build from source, or if pre-built binaries aren't available for your platform yet:
 
 ```bash
 # Requires Rust: https://rustup.rs
+git clone https://github.com/avraammavridis/lore.git
+cd lore
 cargo install --path .
 ```
 
