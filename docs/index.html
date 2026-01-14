@@ -47,8 +47,8 @@
             <div class="text-2xl font-bold text-white">Lore</div>
             <div class="flex gap-6">
                 <a href="#features" class="text-coffee-bean-200 hover:text-white transition">Features</a>
+                <a href="#integration" class="text-coffee-bean-200 hover:text-white transition">Integration</a>
                 <a href="#installation" class="text-coffee-bean-200 hover:text-white transition">Install</a>
-                <a href="#usage" class="text-coffee-bean-200 hover:text-white transition">Usage</a>
                 <a href="https://github.com/avraammavridis/lore" class="text-coffee-bean-200 hover:text-white transition">GitHub</a>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 Create a high-context repository where AI agents don't just read your code &mdash; they read the minds of previous developers and agents who worked on it.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#installation" class="bg-white text-coffee-bean-950 px-8 py-3 rounded-lg font-semibold hover:bg-coffee-bean-50 transition">
+                <a href="#integration" class="bg-white text-coffee-bean-950 px-8 py-3 rounded-lg font-semibold hover:bg-coffee-bean-50 transition">
                     Get Started
                 </a>
                 <a href="https://github.com/avraammavridis/lore" class="bg-transparent border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition">
@@ -157,8 +157,132 @@
         </div>
     </section>
 
+    <!-- AI Integration Section -->
+    <section id="integration" class="py-20 bg-coffee-bean-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">AI Agent Integration</h2>
+            <p class="text-coffee-bean-300 text-center mb-12 max-w-2xl mx-auto">
+                Lore is designed to work seamlessly with AI coding assistants. Add context that persists across sessions.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6 mb-12">
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-lg font-semibold mb-3">No Lost Context</h3>
+                    <p class="text-coffee-bean-300">Each agent's reasoning is preserved forever</p>
+                </div>
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-lg font-semibold mb-3">Avoid Repeated Mistakes</h3>
+                    <p class="text-coffee-bean-300">Rejected alternatives prevent re-exploring dead ends</p>
+                </div>
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-lg font-semibold mb-3">Understand Intent</h3>
+                    <p class="text-coffee-bean-300">Future agents know <em>why</em> code exists, not just <em>what</em> it does</p>
+                </div>
+                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                    <h3 class="text-lg font-semibold mb-3">Searchable History</h3>
+                    <p class="text-coffee-bean-300">Query reasoning across the entire project history</p>
+                </div>
+            </div>
+            <p class="text-coffee-bean-300 text-center mb-6">Add to your agent's system instructions:</p>
+            <div class="code-block rounded-xl p-6 overflow-x-auto">
+                <pre class="text-coffee-bean-200"><code>You have access to a tool called `lore`.
+
+Before you edit a file, run `lore explain &lt;file&gt;` to understand the hidden context.
+
+After you finish a task, run `lore record` to save your chain-of-thought
+so future agents understand your decisions.</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Claude Code Integration -->
+    <section class="py-20 bg-coffee-bean-950">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Claude Code Integration</h2>
+            <p class="text-coffee-bean-300 text-center mb-12">Configure Claude Code to automatically use Lore for every code change</p>
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">1. Initialize Lore in your project</h3>
+                    <div class="code-block rounded-xl p-6 overflow-x-auto">
+                        <pre class="text-coffee-bean-200"><code>lore init --agent "claude-code"</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">2. Create a CLAUDE.md file in your project root</h3>
+                    <p class="text-coffee-bean-300 mb-4">This file instructs Claude Code to use Lore automatically:</p>
+                    <div class="code-block rounded-xl p-6 overflow-x-auto">
+                        <pre class="text-coffee-bean-200"><code><span class="text-coffee-bean-400"># Lore Integration</span>
+
+Before modifying any file, check for existing reasoning:
+  lore explain &lt;file-path&gt;
+
+After completing any code change, record your reasoning:
+  lore record -f &lt;file&gt; -m "Brief description" \
+      --trace "Full reasoning..." \
+      -r "Rejected alternative" \
+      -T relevant-tag</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">3. Commit CLAUDE.md to your repository</h3>
+                    <p class="text-coffee-bean-300">All Claude Code sessions will now automatically use Lore</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cursor Integration -->
+    <section class="py-20 bg-coffee-bean-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Cursor Integration</h2>
+            <p class="text-coffee-bean-300 text-center mb-12">Configure Cursor to use Lore for persistent reasoning context</p>
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">1. Initialize Lore in your project</h3>
+                    <div class="code-block rounded-xl p-6 overflow-x-auto">
+                        <pre class="text-coffee-bean-200"><code>lore init --agent "cursor"</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">2. Create a .cursorrules file in your project root</h3>
+                    <p class="text-coffee-bean-300 mb-4">Add these instructions to configure Cursor's AI:</p>
+                    <div class="code-block rounded-xl p-6 overflow-x-auto">
+                        <pre class="text-coffee-bean-200"><code><span class="text-coffee-bean-400"># Lore Integration for Cursor</span>
+
+This project uses Lore to track reasoning behind code changes.
+
+## Before Editing Files
+Before modifying any file, check if there's existing reasoning:
+  lore explain &lt;file-path&gt;
+
+## After Making Changes
+After completing code changes, record your reasoning:
+  lore record -f &lt;changed-file&gt; \
+      -m "Brief description of what you did" \
+      --trace "Your full reasoning explaining:
+  - Why you made these specific changes
+  - What alternatives you considered
+  - Any trade-offs or concerns" \
+      -r "Alternative you rejected" \
+      -T relevant-tag</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">3. Alternative: Use Cursor Settings</h3>
+                    <p class="text-coffee-bean-300 mb-4">Add to Cursor's "Rules for AI" in Settings &gt; General &gt; Rules for AI:</p>
+                    <div class="code-block rounded-xl p-6 overflow-x-auto">
+                        <pre class="text-coffee-bean-200"><code>When working on code:
+1. Before editing any file, run 'lore explain &lt;file&gt;' to check for existing context
+2. After making changes, run 'lore record' with your reasoning
+3. Include rejected alternatives with -r flag
+4. Add relevant tags with -T flag</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Installation Section -->
-    <section id="installation" class="py-20 bg-coffee-bean-900">
+    <section id="installation" class="py-20 bg-coffee-bean-950">
         <div class="max-w-4xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">Installation</h2>
             <div class="code-block rounded-xl p-6 overflow-x-auto">
@@ -176,14 +300,15 @@ cargo build --release
     </section>
 
     <!-- Usage Section -->
-    <section id="usage" class="py-20 bg-coffee-bean-950">
+    <section id="usage" class="py-20 bg-coffee-bean-900">
         <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Quick Start</h2>
+            <h2 class="text-3xl font-bold text-center mb-12">Manual Usage</h2>
+            <p class="text-coffee-bean-300 text-center mb-12">You can also use Lore directly from the command line</p>
             <div class="space-y-8">
                 <div>
                     <h3 class="text-xl font-semibold mb-4 text-primary">Initialize Lore in your project</h3>
                     <div class="code-block rounded-xl p-6 overflow-x-auto">
-                        <pre class="text-coffee-bean-200"><code>lore init --agent "claude-3-5-sonnet"</code></pre>
+                        <pre class="text-coffee-bean-200"><code>lore init --agent "my-agent-id"</code></pre>
                     </div>
                 </div>
                 <div>
@@ -211,73 +336,39 @@ lore search "pandas"  <span class="text-coffee-bean-400"># Find all code avoidin
     </section>
 
     <!-- Commands Section -->
-    <section class="py-20 bg-coffee-bean-900">
+    <section class="py-20 bg-coffee-bean-950">
         <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Commands</h2>
+            <h2 class="text-3xl font-bold text-center mb-12">Commands Reference</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
                     <h3 class="text-xl font-semibold mb-2 text-primary">lore init</h3>
                     <p class="text-coffee-bean-300 mb-4">Initialize a new Lore repository</p>
                     <code class="text-sm text-coffee-bean-400">lore init --agent "my-agent-id"</code>
                 </div>
-                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
                     <h3 class="text-xl font-semibold mb-2 text-primary">lore record</h3>
                     <p class="text-coffee-bean-300 mb-4">Record reasoning for code changes</p>
                     <code class="text-sm text-coffee-bean-400">lore record -m "Intent" --trace "..."</code>
                 </div>
-                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
                     <h3 class="text-xl font-semibold mb-2 text-primary">lore explain</h3>
                     <p class="text-coffee-bean-300 mb-4">Retrieve reasoning behind a file</p>
                     <code class="text-sm text-coffee-bean-400">lore explain src/auth.py --all</code>
                 </div>
-                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
                     <h3 class="text-xl font-semibold mb-2 text-primary">lore search</h3>
                     <p class="text-coffee-bean-300 mb-4">Search through reasoning history</p>
                     <code class="text-sm text-coffee-bean-400">lore search "JWT" --file auth</code>
                 </div>
-                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
                     <h3 class="text-xl font-semibold mb-2 text-primary">lore list</h3>
                     <p class="text-coffee-bean-300 mb-4">List all recorded entries</p>
                     <code class="text-sm text-coffee-bean-400">lore list --limit 20 --json</code>
                 </div>
-                <div class="bg-coffee-bean-950 p-6 rounded-xl border border-coffee-bean-700">
+                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
                     <h3 class="text-xl font-semibold mb-2 text-primary">lore status</h3>
                     <p class="text-coffee-bean-300 mb-4">Show Lore status for the repo</p>
                     <code class="text-sm text-coffee-bean-400">lore status</code>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Integration Section -->
-    <section class="py-20 bg-coffee-bean-950">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-4">AI Agent Integration</h2>
-            <p class="text-coffee-bean-300 text-center mb-12">Add to your agent's system instructions:</p>
-            <div class="code-block rounded-xl p-6 overflow-x-auto">
-                <pre class="text-coffee-bean-200"><code>You have access to a tool called `lore`.
-
-Before you edit a file, run `lore explain &lt;file&gt;` to understand the hidden context.
-
-After you finish a task, run `lore record` to save your chain-of-thought
-so future agents understand your decisions.</code></pre>
-            </div>
-            <div class="mt-12 grid md:grid-cols-2 gap-6">
-                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
-                    <h3 class="text-lg font-semibold mb-3">No Lost Context</h3>
-                    <p class="text-coffee-bean-300">Each agent's reasoning is preserved forever</p>
-                </div>
-                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
-                    <h3 class="text-lg font-semibold mb-3">Avoid Repeated Mistakes</h3>
-                    <p class="text-coffee-bean-300">Rejected alternatives prevent re-exploring dead ends</p>
-                </div>
-                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
-                    <h3 class="text-lg font-semibold mb-3">Understand Intent</h3>
-                    <p class="text-coffee-bean-300">Future agents know <em>why</em> code exists, not just <em>what</em> it does</p>
-                </div>
-                <div class="bg-coffee-bean-900 p-6 rounded-xl border border-coffee-bean-700">
-                    <h3 class="text-lg font-semibold mb-3">Searchable History</h3>
-                    <p class="text-coffee-bean-300">Query reasoning across the entire project history</p>
                 </div>
             </div>
         </div>
@@ -309,7 +400,7 @@ so future agents understand your decisions.</code></pre>
             <div class="flex justify-center gap-6">
                 <a href="https://github.com/avraammavridis/lore" class="text-coffee-bean-300 hover:text-white transition">GitHub</a>
                 <a href="#installation" class="text-coffee-bean-300 hover:text-white transition">Installation</a>
-                <a href="#usage" class="text-coffee-bean-300 hover:text-white transition">Documentation</a>
+                <a href="#integration" class="text-coffee-bean-300 hover:text-white transition">Integration</a>
             </div>
             <p class="text-coffee-bean-400 mt-8">MIT License</p>
         </div>

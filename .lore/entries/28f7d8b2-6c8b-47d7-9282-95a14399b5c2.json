@@ -1,0 +1,23 @@
+{
+  "id": "28f7d8b2-6c8b-47d7-9282-95a14399b5c2",
+  "target_file": "docs/index.html",
+  "file_hash": "c7c6ddf10938291f7e632f7d6595d5c5d329aa095f60793e06b1260b7925194a",
+  "commit_hash": "c5bcacc149545333ee631b816ec27d6428a6b303",
+  "agent_id": "claude-opus-4",
+  "timestamp": "2026-01-14T07:24:11.464009Z",
+  "intent": "Reorganized docs to prioritize AI agent integration, added Cursor section",
+  "reasoning_trace": "Restructured the docs page to better reflect Lore's primary use case with AI coding assistants.\n\nChanges made:\n1. Moved AI Agent Integration section up to appear right after the Features comparison table\n2. Added a dedicated Claude Code Integration section with step-by-step setup instructions\n3. Added a new Cursor Integration section with:\n   - Instructions to create .cursorrules file\n   - Alternative method using Cursor Settings > Rules for AI\n4. Moved Installation section below the integration sections\n5. Renamed 'Quick Start' to 'Manual Usage' and moved it lower in the page\n6. Renamed 'Commands' to 'Commands Reference' and moved it to the bottom\n7. Updated navigation: replaced 'Usage' link with 'Integration' link\n8. Changed hero CTA button to point to #integration instead of #installation\n\nRationale:\n- Most users will integrate Lore with AI coding assistants (Claude Code, Cursor, etc.)\n- The integration sections should be prominent and easy to find\n- Manual CLI usage is secondary and can be discovered after understanding the main use case\n- Installation is a prerequisite but not the first thing users need to understand\n\nThe page flow is now: Why Lore exists → How to integrate with your AI assistant → How to install → Manual usage reference",
+  "rejected_alternatives": [
+    {
+      "name": "Keeping original section order - integration was buried too far down the page"
+    },
+    {
+      "name": "Separate pages for each integration - decided single page with clear sections is better for discoverability"
+    }
+  ],
+  "tags": [
+    "docs",
+    "ux",
+    "restructure"
+  ]
+}
