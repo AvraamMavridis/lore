@@ -121,3 +121,249 @@ impl LoreIndex {
         self.files.get(file_path)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_thought_object_new() {
+        let thought = ThoughtObject::new(
+            "src/main.rs".to_string(),
+            "abc123".to_string(),
+            "test-agent".to_string(),
+            "Test intent".to_string(),
+            "Test reasoning".to_string(),
+        );
+
+        assert_eq!(thought.target_file, "src/main.rs");
+        assert_eq!(thought.file_hash, "abc123");
+        assert_eq!(thought.agent_id, "test-agent");
+        assert_eq!(thought.intent, "Test intent");
+        assert_eq!(thought.reasoning_trace, "Test reasoning");
+        assert!(thought.line_range.is_none());
+        assert!(thought.commit_hash.is_none());
+        assert!(thought.rejected_alternatives.is_empty());
+        assert!(thought.tags.is_empty());
+        assert!(!thought.id.is_empty());
+    }
+
+    #[test]
+    fn test_thought_object_with_line_range() {
+        let thought = ThoughtObject::new(
+            "src/main.rs".to_string(),
+            "abc123".to_string(),
+            "test-agent".to_string(),
+            "Test".to_string(),
+            "Reasoning".to_string(),
+        )
+        .with_line_range(10, 50);
+
+        assert_eq!(thought.line_range, Some((10, 50)));
+    }
+
+    #[test]
+    fn test_thought_object_with_commit() {
+        let thought = ThoughtObject::new(
+            "src/main.rs".to_string(),
+            "abc123".to_string(),
+            "test-agent".to_string(),
+            "Test".to_string(),
+            "Reasoning".to_string(),
+        )
+        .with_commit("deadbeef".to_string());
+
+        assert_eq!(thought.commit_hash, Some("deadbeef".to_string()));
+    }
+
+    #[test]
+    fn test_thought_object_with_rejected() {
+        let alternatives = vec![
+            RejectedAlternative {
+                name: "Option A".to_string(),
+                reason: Some("Too slow".to_string()),
+            },
+            RejectedAlternative {
+                name: "Option B".to_string(),
+                reason: None,
+            },
+        ];
+
+        let thought = ThoughtObject::new(
+            "src/main.rs".to_string(),
+            "abc123".to_string(),
+            "test-agent".to_string(),
+            "Test".to_string(),
+            "Reasoning".to_string(),
+        )
+        .with_rejected(alternatives);
+
+        assert_eq!(thought.rejected_alternatives.len(), 2);
+        assert_eq!(thought.rejected_alternatives[0].name, "Option A");
+        assert_eq!(
+            thought.rejected_alternatives[0].reason,
+            Some("Too slow".to_string())
+        );
+        assert_eq!(thought.rejected_alternatives[1].name, "Option B");
+        assert!(thought.rejected_alternatives[1].reason.is_none());
+    }
+
+    #[test]
+    fn test_thought_object_with_tags() {
+        let thought = ThoughtObject::new(
+            "src/main.rs".to_string(),
+            "abc123".to_string(),
+            "test-agent".to_string(),
+            "Test".to_string(),
+            "Reasoning".to_string(),
+        )
+        .with_tags(vec!["auth".to_string(), "security".to_string()]);
+
+        assert_eq!(thought.tags, vec!["auth", "security"]);
+    }
+
+    #[test]
+    fn test_thought_object_builder_chain() {
+        let thought = ThoughtObject::new(
+            "src/main.rs".to_string(),
+            "abc123".to_string(),
+            "test-agent".to_string(),
+            "Test".to_string(),
+            "Reasoning".to_string(),
+        )
+        .with_line_range(1, 10)
+        .with_commit("abc".to_string())
+        .with_tags(vec!["tag1".to_string()]);
+
+        assert_eq!(thought.line_range, Some((1, 10)));
+        assert_eq!(thought.commit_hash, Some("abc".to_string()));
+        assert_eq!(thought.tags, vec!["tag1"]);
+    }
+
+    #[test]
+    fn test_thought_object_serialization() {
+        let thought = ThoughtObject::new(
+            "src/main.rs".to_string(),
+            "abc123".to_string(),
+            "test-agent".to_string(),
+            "Test intent".to_string(),
+            "Test reasoning".to_string(),
+        );
+
+        let json = serde_json::to_string(&thought).unwrap();
+        let deserialized: ThoughtObject = serde_json::from_str(&json).unwrap();
+
+        assert_eq!(deserialized.target_file, thought.target_file);
+        assert_eq!(deserialized.file_hash, thought.file_hash);
+        assert_eq!(deserialized.agent_id, thought.agent_id);
+        assert_eq!(deserialized.intent, thought.intent);
+        assert_eq!(deserialized.reasoning_trace, thought.reasoning_trace);
+    }
+
+    #[test]
+    fn test_lore_index_new() {
+        let index = LoreIndex::new();
+        assert!(index.files.is_empty());
+        assert_eq!(index.entry_count, 0);
+    }
+
+    #[test]
+    fn test_lore_index_add_entry() {
+        let mut index = LoreIndex::new();
+        index.add_entry("src/main.rs", "entry-1");
+
+        assert_eq!(index.entry_count, 1);
+        assert_eq!(
+            index.get_entries_for_file("src/main.rs"),
+            Some(&vec!["entry-1".to_string()])
+        );
+    }
+
+    #[test]
+    fn test_lore_index_add_multiple_entries_same_file() {
+        let mut index = LoreIndex::new();
+        index.add_entry("src/main.rs", "entry-1");
+        index.add_entry("src/main.rs", "entry-2");
+
+        assert_eq!(index.entry_count, 2);
+        let entries = index.get_entries_for_file("src/main.rs").unwrap();
+        assert_eq!(entries.len(), 2);
+        assert!(entries.contains(&"entry-1".to_string()));
+        assert!(entries.contains(&"entry-2".to_string()));
+    }
+
+    #[test]
+    fn test_lore_index_add_entries_different_files() {
+        let mut index = LoreIndex::new();
+        index.add_entry("src/main.rs", "entry-1");
+        index.add_entry("src/lib.rs", "entry-2");
+
+        assert_eq!(index.entry_count, 2);
+        assert_eq!(
+            index.get_entries_for_file("src/main.rs"),
+            Some(&vec!["entry-1".to_string()])
+        );
+        assert_eq!(
+            index.get_entries_for_file("src/lib.rs"),
+            Some(&vec!["entry-2".to_string()])
+        );
+    }
+
+    #[test]
+    fn test_lore_index_get_entries_nonexistent_file() {
+        let index = LoreIndex::new();
+        assert!(index.get_entries_for_file("nonexistent.rs").is_none());
+    }
+
+    #[test]
+    fn test_lore_index_serialization() {
+        let mut index = LoreIndex::new();
+        index.add_entry("src/main.rs", "entry-1");
+        index.add_entry("src/lib.rs", "entry-2");
+
+        let json = serde_json::to_string(&index).unwrap();
+        let deserialized: LoreIndex = serde_json::from_str(&json).unwrap();
+
+        assert_eq!(deserialized.entry_count, 2);
+        assert_eq!(
+            deserialized.get_entries_for_file("src/main.rs"),
+            Some(&vec!["entry-1".to_string()])
+        );
+    }
+
+    #[test]
+    fn test_rejected_alternative_with_reason() {
+        let alt = RejectedAlternative {
+            name: "Option A".to_string(),
+            reason: Some("Performance issues".to_string()),
+        };
+
+        assert_eq!(alt.name, "Option A");
+        assert_eq!(alt.reason, Some("Performance issues".to_string()));
+    }
+
+    #[test]
+    fn test_rejected_alternative_without_reason() {
+        let alt = RejectedAlternative {
+            name: "Option B".to_string(),
+            reason: None,
+        };
+
+        assert_eq!(alt.name, "Option B");
+        assert!(alt.reason.is_none());
+    }
+
+    #[test]
+    fn test_rejected_alternative_serialization() {
+        let alt = RejectedAlternative {
+            name: "Test".to_string(),
+            reason: Some("Reason".to_string()),
+        };
+
+        let json = serde_json::to_string(&alt).unwrap();
+        let deserialized: RejectedAlternative = serde_json::from_str(&json).unwrap();
+
+        assert_eq!(deserialized.name, alt.name);
+        assert_eq!(deserialized.reason, alt.reason);
+    }
+}

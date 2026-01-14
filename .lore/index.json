@@ -1,7 +1,10 @@
 {
   "files": {
-    "src/models.rs": [
-      "e1564969-3782-447a-98d5-c8640429907d"
+    "src/storage.rs": [
+      "90cc5f89-7e4a-4771-91fa-28b45cdc0547"
+    ],
+    "src/git.rs": [
+      "68b427b0-31bf-4e69-8eca-f616ff43899f"
     ],
     "src/main.rs": [
       "8eb87360-c9f7-4d7f-90dc-1cb9a109885e"
@@ -9,7 +12,14 @@
     "docs/index.html": [
       "19de3d7c-bc24-498c-8d07-d18b22148b3b",
       "28f7d8b2-6c8b-47d7-9282-95a14399b5c2"
+    ],
+    "Cargo.toml": [
+      "b04502d2-6a3b-48c9-b207-72a9cce21a27"
+    ],
+    "src/models.rs": [
+      "e1564969-3782-447a-98d5-c8640429907d",
+      "e345f3f1-dd33-4278-9310-3d19afd0cc91"
     ]
   },
-  "entry_count": 4
+  "entry_count": 8
 }
