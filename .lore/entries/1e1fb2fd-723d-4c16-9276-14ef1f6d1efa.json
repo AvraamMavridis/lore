@@ -1,0 +1,24 @@
+{
+  "id": "1e1fb2fd-723d-4c16-9276-14ef1f6d1efa",
+  "target_file": "src/git.rs",
+  "file_hash": "9b6cdef8b00e0057ad89874eb11e873298b3d2a092d26e80e23174859016d959",
+  "commit_hash": "46f1757c0d570996426b0a20b2bb384eb9dce3e3",
+  "agent_id": "claude-opus-4",
+  "timestamp": "2026-01-14T09:48:28.742437Z",
+  "intent": "Fix clippy warnings, improve installation docs, and redesign UI",
+  "reasoning_trace": "Made multiple improvements to the project:\n\n1. Fixed 4 clippy warnings:\n   - Added #[allow(dead_code)] to public API methods (workdir, is_ignored, hash_string) that are tested but not used in the binary\n   - Added #[allow(dead_code)] to staged field in ChangedFile struct\n   - Simplified map_or to is_some_and for cleaner code\n\n2. Documentation improvements:\n   - Created release tag v0.1.1 to trigger GitHub Actions release workflow\n   - Updated README.md installation instructions with sudo commands and PowerShell options\n   - Reorganized README structure: moved Installation section before AI agent integration sections\n   - Renamed 'Manual Usage' to 'Recording with Lore' for clarity\n\n3. Fixed UI layout glitch in docs/index.html:\n   - Changed installation section from 3-column grid to full-width stacked layout\n   - Reordered platforms: Linux → macOS → Windows\n   - Added inline SVG logos for each platform\n   - Improved code formatting with single-line commands\n   - Better spacing and alignment\n\nAll tests pass and clippy is clean.",
+  "rejected_alternatives": [
+    {
+      "name": "Keeping 3-column grid layout (caused text overflow)"
+    },
+    {
+      "name": "Not using lore to document changes"
+    }
+  ],
+  "tags": [
+    "clippy",
+    "docs",
+    "ui",
+    "installation"
+  ]
+}
