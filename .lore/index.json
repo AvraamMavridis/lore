@@ -1,20 +1,27 @@
 {
   "files": {
-    "src/git.rs": [
-      "68b427b0-31bf-4e69-8eca-f616ff43899f"
-    ],
-    "README.md": [
-      "e45e6a3e-8aea-4fc2-96ae-e87f5ef31986"
-    ],
-    "src/main.rs": [
-      "8eb87360-c9f7-4d7f-90dc-1cb9a109885e"
-    ],
     "src/storage.rs": [
       "90cc5f89-7e4a-4771-91fa-28b45cdc0547"
     ],
     "docs/index.html": [
       "19de3d7c-bc24-498c-8d07-d18b22148b3b",
-      "28f7d8b2-6c8b-47d7-9282-95a14399b5c2"
+      "28f7d8b2-6c8b-47d7-9282-95a14399b5c2",
+      "a93b283b-57a7-4f7c-a6b3-8131a25c24de",
+      "d31c32d9-8f83-4da3-a7c9-8e74e07e8afe",
+      "4974dbcf-ece5-42f5-9fc2-5d037024a594"
+    ],
+    "README.md": [
+      "e45e6a3e-8aea-4fc2-96ae-e87f5ef31986",
+      "8ad8f6d0-04e7-49ad-baf1-b9bf691076b7",
+      "44f54483-2128-4831-856b-3fdb1ce72e66",
+      "ce8311e1-d7e1-4501-9d7a-76ffad7b76e0"
+    ],
+    "src/main.rs": [
+      "8eb87360-c9f7-4d7f-90dc-1cb9a109885e"
+    ],
+    ".github/workflows/ci.yml": [
+      "51de351d-1b92-4f49-836d-4619cd457be8",
+      "6ee0f41b-682c-4853-be15-8487fb684261"
     ],
     "Cargo.toml": [
       "b04502d2-6a3b-48c9-b207-72a9cce21a27"
@@ -22,7 +29,13 @@
     "src/models.rs": [
       "e1564969-3782-447a-98d5-c8640429907d",
       "e345f3f1-dd33-4278-9310-3d19afd0cc91"
+    ],
+    "src/git.rs": [
+      "68b427b0-31bf-4e69-8eca-f616ff43899f"
+    ],
+    ".github/workflows/release.yml": [
+      "1b549f62-2449-409a-8a2f-3038739f08f0"
     ]
   },
-  "entry_count": 9
+  "entry_count": 18
 }
