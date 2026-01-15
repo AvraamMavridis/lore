@@ -761,5 +761,4 @@ mod tests {
         assert!(root.is_some());
         assert_eq!(root.unwrap(), temp_dir.path());
     }
-
 }
